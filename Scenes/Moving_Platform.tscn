@@ -1,0 +1,40 @@
+[gd_scene load_steps=5 format=3 uid="uid://dor5iuj21sro7"]
+
+[ext_resource type="Script" uid="uid://bfbkaheaj0c3c" path="res://Scripts/MovingPlatform.gd" id="1_vvyo4"]
+
+[sub_resource type="QuadMesh" id="QuadMesh_0ba56"]
+size = Vector2(1000, 100)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_vsvp5"]
+size = Vector2(1000, 100)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_k50wc"]
+size = Vector2(1000, 18.9286)
+
+[node name="MovingPlatform" type="Node2D"]
+
+[node name="StaticBody2D2" type="StaticBody2D" parent="."]
+scale = Vector2(0.24, 0.56)
+script = ExtResource("1_vvyo4")
+
+[node name="MeshInstance2D" type="MeshInstance2D" parent="StaticBody2D2"]
+modulate = Color(1, 0.302901, 0.606766, 1)
+mesh = SubResource("QuadMesh_0ba56")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D2"]
+shape = SubResource("RectangleShape2D_vsvp5")
+
+[node name="Area2D" type="Area2D" parent="StaticBody2D2"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D2/Area2D"]
+position = Vector2(0, -60.1786)
+shape = SubResource("RectangleShape2D_k50wc")
+
+[node name="Pos1" type="Node2D" parent="."]
+scale = Vector2(0.24, 0.56)
+
+[node name="Pos2" type="Node2D" parent="."]
+scale = Vector2(0.24, 0.56)
+
+[connection signal="body_entered" from="StaticBody2D2/Area2D" to="StaticBody2D2" method="_on_character_entered"]
+[connection signal="body_exited" from="StaticBody2D2/Area2D" to="StaticBody2D2" method="_on_character_exited"]

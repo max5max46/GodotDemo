@@ -1,0 +1,47 @@
+[gd_scene load_steps=5 format=3 uid="uid://eqorsn80gnxu"]
+
+[ext_resource type="Script" uid="uid://sexavjrtsfxq" path="res://Scripts/Automatic.gd" id="1_x8iyn"]
+
+[sub_resource type="QuadMesh" id="QuadMesh_f20r5"]
+size = Vector2(1000, 100)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_6lrid"]
+size = Vector2(1000, 100)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_cstc8"]
+size = Vector2(1000, 18.9286)
+
+[node name="AutomaticDoor" type="Node2D"]
+
+[node name="StaticBody2D2" type="StaticBody2D" parent="."]
+scale = Vector2(0.0948188, 4.69061)
+script = ExtResource("1_x8iyn")
+speed = 8
+
+[node name="MeshInstance2D" type="MeshInstance2D" parent="StaticBody2D2"]
+modulate = Color(0.220735, 0.659908, 0.903468, 1)
+mesh = SubResource("QuadMesh_f20r5")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D2"]
+shape = SubResource("RectangleShape2D_6lrid")
+
+[node name="Area2D" type="Area2D" parent="."]
+scale = Vector2(0.366422, 24.7932)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("RectangleShape2D_cstc8")
+
+[node name="MeshInstance2D" type="MeshInstance2D" parent="Area2D"]
+modulate = Color(0.72549, 0.729412, 0.282353, 0.152941)
+scale = Vector2(1, 0.188487)
+mesh = SubResource("QuadMesh_f20r5")
+
+[node name="Pos1" type="Node2D" parent="."]
+scale = Vector2(0.24, 0.56)
+
+[node name="Pos2" type="Node2D" parent="."]
+position = Vector2(0, -500)
+scale = Vector2(0.24, 0.56)
+
+[connection signal="body_entered" from="Area2D" to="StaticBody2D2" method="_on_character_entered"]
+[connection signal="body_exited" from="Area2D" to="StaticBody2D2" method="_on_character_exited"]

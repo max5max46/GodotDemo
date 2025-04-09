@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://b1pcvofcy7o2q"]
+[gd_scene load_steps=6 format=3 uid="uid://b1pcvofcy7o2q"]
 
 [ext_resource type="PackedScene" uid="uid://c8xwne16pvvf1" path="res://Scenes/Player.tscn" id="1_0ba56"]
-[ext_resource type="Script" uid="uid://bfbkaheaj0c3c" path="res://Scripts/MovingPlatform.gd" id="2_vsvp5"]
+[ext_resource type="PackedScene" uid="uid://dor5iuj21sro7" path="res://Scenes/Moving_Platform.tscn" id="2_vsvp5"]
+[ext_resource type="PackedScene" uid="uid://eqorsn80gnxu" path="res://Scenes/Automatic_Door.tscn" id="3_8rbpu"]
 
 [sub_resource type="QuadMesh" id="QuadMesh_0ba56"]
 size = Vector2(1000, 100)
@@ -14,68 +15,80 @@ size = Vector2(1000, 100)
 [node name="CharacterBody2D" parent="." instance=ExtResource("1_0ba56")]
 position = Vector2(576, 363)
 
-[node name="StaticBody2D2" type="StaticBody2D" parent="."]
-position = Vector2(-706, 131)
-scale = Vector2(0.199998, 10.72)
+[node name="MovingPlatform" parent="." instance=ExtResource("2_vsvp5")]
+position = Vector2(1031, 513)
 
-[node name="MeshInstance2D" type="MeshInstance2D" parent="StaticBody2D2"]
+[node name="StaticBody2D2" parent="MovingPlatform" index="0"]
+speed = 5
+
+[node name="Pos2" parent="MovingPlatform" index="2"]
+position = Vector2(-642, -747)
+
+[node name="AutomaticDoor" parent="." instance=ExtResource("3_8rbpu")]
+position = Vector2(-720, 422)
+
+[node name="StaticBody2D2" parent="AutomaticDoor" index="0"]
+speed = 15
+
+[node name="Area2D" parent="AutomaticDoor" index="1"]
+scale = Vector2(0.566423, 24.7932)
+
+[node name="Level Geometry" type="Node" parent="."]
+
+[node name="StaticBody2D2" type="StaticBody2D" parent="Level Geometry"]
+position = Vector2(-722, -104)
+scale = Vector2(0.199998, 6.2)
+
+[node name="MeshInstance2D" type="MeshInstance2D" parent="Level Geometry/StaticBody2D2"]
 modulate = Color(0.0765083, 0.767248, 5.77569e-06, 1)
 mesh = SubResource("QuadMesh_0ba56")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D2"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Level Geometry/StaticBody2D2"]
 shape = SubResource("RectangleShape2D_vsvp5")
 
-[node name="StaticBody2D" type="StaticBody2D" parent="."]
-position = Vector2(592, 644)
-scale = Vector2(2.8, 1)
+[node name="StaticBody2D" type="StaticBody2D" parent="Level Geometry"]
+position = Vector2(74, 665)
+scale = Vector2(3.84, 1.00291)
 
-[node name="MeshInstance2D" type="MeshInstance2D" parent="StaticBody2D"]
+[node name="MeshInstance2D" type="MeshInstance2D" parent="Level Geometry/StaticBody2D"]
 modulate = Color(0.0765083, 0.767248, 5.77569e-06, 1)
 mesh = SubResource("QuadMesh_0ba56")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Level Geometry/StaticBody2D"]
 shape = SubResource("RectangleShape2D_vsvp5")
 
-[node name="MovingPlatform" type="Node2D" parent="."]
-
-[node name="StaticBody2D2" type="StaticBody2D" parent="MovingPlatform"]
-position = Vector2(857, 490)
-scale = Vector2(0.24, 0.56)
-script = ExtResource("2_vsvp5")
-
-[node name="MeshInstance2D" type="MeshInstance2D" parent="MovingPlatform/StaticBody2D2"]
-modulate = Color(1, 0.302901, 0.606766, 1)
-mesh = SubResource("QuadMesh_0ba56")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="MovingPlatform/StaticBody2D2"]
-shape = SubResource("RectangleShape2D_vsvp5")
-
-[node name="Pos1" type="Node2D" parent="MovingPlatform"]
-position = Vector2(857, 490)
-scale = Vector2(0.24, 0.56)
-
-[node name="Pos2" type="Node2D" parent="MovingPlatform"]
-position = Vector2(851, 83)
-scale = Vector2(0.24, 0.56)
-
-[node name="StaticBody2D3" type="StaticBody2D" parent="."]
+[node name="StaticBody2D3" type="StaticBody2D" parent="Level Geometry"]
 position = Vector2(1894, 155)
 scale = Vector2(0.199998, 10.72)
 
-[node name="MeshInstance2D" type="MeshInstance2D" parent="StaticBody2D3"]
+[node name="MeshInstance2D" type="MeshInstance2D" parent="Level Geometry/StaticBody2D3"]
 modulate = Color(0.0765083, 0.767248, 5.77569e-06, 1)
 mesh = SubResource("QuadMesh_0ba56")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D3"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Level Geometry/StaticBody2D3"]
 shape = SubResource("RectangleShape2D_vsvp5")
 
-[node name="StaticBody2D4" type="StaticBody2D" parent="."]
-position = Vector2(497, 86)
+[node name="StaticBody2D4" type="StaticBody2D" parent="Level Geometry"]
+position = Vector2(-16.9999, 80)
 scale = Vector2(0.342557, 0.741343)
 
-[node name="MeshInstance2D" type="MeshInstance2D" parent="StaticBody2D4"]
+[node name="MeshInstance2D" type="MeshInstance2D" parent="Level Geometry/StaticBody2D4"]
 modulate = Color(0.0765083, 0.767248, 5.77569e-06, 1)
 mesh = SubResource("QuadMesh_0ba56")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D4"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Level Geometry/StaticBody2D4"]
 shape = SubResource("RectangleShape2D_vsvp5")
+
+[node name="StaticBody2D5" type="StaticBody2D" parent="Level Geometry"]
+position = Vector2(-1743, -370)
+scale = Vector2(0.199998, 20.28)
+
+[node name="MeshInstance2D" type="MeshInstance2D" parent="Level Geometry/StaticBody2D5"]
+modulate = Color(0.0765083, 0.767248, 5.77569e-06, 1)
+mesh = SubResource("QuadMesh_0ba56")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Level Geometry/StaticBody2D5"]
+shape = SubResource("RectangleShape2D_vsvp5")
+
+[editable path="MovingPlatform"]
+[editable path="AutomaticDoor"]
